@@ -1,19 +1,20 @@
 import { Module } from '@nestjs/common';
-import { PlayersService } from './players/players.service';
-import { PlayersController } from './players/players.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PlayersModule } from './players/players.module';
+import 'dotenv/config'
 
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  // useFindAndModify: false
+  // useFindAndModify: false,
   // useCreateIndex: true,
 }
 
+const password = process.env.DB_PASS;
+
 @Module({
-  imports: [MongooseModule.forRoot('mongodb+srv://devSmart:smartDev@smartranking.f9xnj.mongodb.net/ranking?retryWrites=true&w=majority', options), PlayersModule],
-  controllers: [PlayersController],
-  providers: [PlayersService],
+  imports: [MongooseModule.forRoot(`mongodb+srv://${password}:smartDev@smartranking.f9xnj.mongodb.net/ranking?retryWrites=true&w=majority`, options), PlayersModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
