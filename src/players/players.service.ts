@@ -11,7 +11,6 @@ export class PlayersService {
 
   constructor(@InjectModel('players') private readonly playerModel: Model<player>) {}
 
-
   async createPlayer(player: createPlayerDto): Promise<player> {
     this.logger.log(`create Player: ${player}`);
     const createPlayer = new this.playerModel(player);

@@ -9,32 +9,32 @@ export class PlayersController {
 
   @Post('/new')
   async createNewPlayer(@Body() newPlayer: createPlayerDto) {
-
+    return this.playerServices.createPlayer(newPlayer);
   }
 
-  @Put('/updateRegister')
-  async updatePlayer(@Body() setUpdate: updatePlayerDtos ) {
-
-  }
+  @Put('/updateRegister/:id')
+  async updatePlayer(@Param('id') id: number ,@Body() setUpdate: updatePlayerDtos) {
+    return this.playerServices.updatePlayer(id, setUpdate);
+  };
 
   @Get('/Players')
   async getPlayers() {
-
+    return this.playerServices.getPlayer();
   }
 
   @Get('/Players/:id')
-  async getPlayersByID(@Param() id: string) {
-
+  async getPlayersByID(@Param('id') id: number) {
+    return this.playerServices.getPlayerById(id);
   }
 
   @Get('/Players/:name')
-  async getPlayersByName(@Param() name: string) {
-
+  async getPlayersByName(@Param('name') name: string) {
+    return this.playerServices.getPlayerByName(name);
   }
 
   @Delete('/Deleted/:id')
-  async deletedPlayer(@Param() id: string) {
-
+  async deletedPlayer(@Param('id') id: number) {
+    return this.playerServices.deletedPlayer(id);
   }
   
 }
