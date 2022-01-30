@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { createPlayerDto } from './dtos/createPlayer.dto';
 import { updatePlayerDtos } from './dtos/updatePlayer.dto';
 import { PlayersService } from './players.service';
@@ -8,11 +8,13 @@ export class PlayersController {
   constructor(private readonly playerServices: PlayersService) {}
 
   @Post('/new')
+  @UsePipes(ValidationPipe)
   async createNewPlayer(@Body() newPlayer: createPlayerDto) {
     return this.playerServices.createPlayer(newPlayer);
   }
 
   @Put('/updateRegister/:id')
+  @UsePipes(ValidationPipe)
   async updatePlayer(@Param('id') id: number ,@Body() setUpdate: updatePlayerDtos) {
     return this.playerServices.updatePlayer(id, setUpdate);
   };
