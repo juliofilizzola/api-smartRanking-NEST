@@ -4,7 +4,7 @@ import { player } from "src/players/interface/player.interface";
 export interface event {
   name: string;
   operation: string;
-  value: string;
+  value: number;
 }
 
 export interface categories extends Document {

@@ -3,7 +3,7 @@ import { CategoriesService } from './categories.service';
 import { createCategoryDto } from './dtos/createCategory.dtos';
 import { categories } from './interfaces/categories.interface';
 
-@Controller('categories')
+@Controller('api/v1/categories')
 export class CategoriesController {
   constructor(private readonly categoriesServices: CategoriesService) {}
 
@@ -13,5 +13,5 @@ export class CategoriesController {
     const result = await this.categoriesServices.createCategories(category);
     return result;
   }
-  
+
 }
