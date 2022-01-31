@@ -1,4 +1,5 @@
-import { IsEmail, IsEmpty, IsString } from "class-validator";
+import { ArrayMinSize, IsArray, IsEmpty, IsString } from "class-validator";
+import { event } from "../interfaces/categories.interface";
 
 export class createCategoryDto {
   @IsEmpty()
@@ -6,10 +7,10 @@ export class createCategoryDto {
   readonly category: string;
 
   @IsEmpty()
-  @IsEmail()
-  readonly email: string;
-  
-  @IsEmpty()
   @IsString()
-  readonly name: string;
+  desciption: string;
+  
+  @IsArray()
+  @ArrayMinSize(1)
+  event: Array<event>
 }
