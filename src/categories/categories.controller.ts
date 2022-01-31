@@ -1,4 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller } from '@nestjs/common';
 
 @Controller('categories')
-export class CategoriesController {}
+export class CategoriesController {
+  constructor() {}
+  async createCategory() {
+
+  }
+}
