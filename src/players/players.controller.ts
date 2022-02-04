@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body,
+  Controller,
+  Delete,
+  NotFoundException,
+  Get,
+  Param,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { createPlayerDto } from './dtos/createPlayer.dto';
 import { updatePlayerDtos } from './dtos/updatePlayer.dto';
 import { PlayersService } from './players.service';
@@ -10,7 +20,11 @@ export class PlayersController {
   @Post('/new')
   @UsePipes(ValidationPipe)
   async createNewPlayer(@Body() newPlayer: createPlayerDto) {
-    return this.playerServices.createPlayer(newPlayer);
+    const result = await this.playerServices.createPlayer(newPlayer);
+    if (!result) {
+      throw new NotFoundException("Ainda não tem nenhuma categoria registrada.");
+    }
+    return result;
   }
 
   @Put('/updateRegister/:id')
