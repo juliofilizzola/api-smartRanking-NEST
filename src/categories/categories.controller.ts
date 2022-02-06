@@ -1,7 +1,7 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { createCategoryDto } from './dtos/createCategory.dtos';
-import { categories } from './interfaces/categories.interface';
+import { categories, playersEvent } from './interfaces/categories.interface';
 
 @Controller('api/v1/categories')
 export class CategoriesController {
@@ -33,9 +33,10 @@ export class CategoriesController {
     return result;
   }
 
-  @Post('/:categories/player/:player')
-  async setAttributePlayer(@Param('categories') categories: string, @Param('player') player: string): Promise<any> {
-    const result = await this.categoriesServices.setAttributePlayer(categories, player);
+  @Post('/:categories/player')
+  async setAttributePlayer(@Param('categories') categories: string, @Body() player: playersEvent): Promise<any> {
+    const { players } = player;
+    const result = await this.categoriesServices.setAttributePlayer(categories, players);
     return result;
   }
 }

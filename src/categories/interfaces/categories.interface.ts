@@ -7,6 +7,10 @@ export interface event {
   value: number;
 }
 
+export interface playersEvent {
+  players: Array<String>
+}
+
 export interface categories extends Document {
   readonly category: string;
   description: string;
