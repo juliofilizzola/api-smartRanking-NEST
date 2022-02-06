@@ -30,17 +30,30 @@ export class PlayersController {
   @Put('/updateRegister/:id')
   @UsePipes(ValidationPipe)
   async updatePlayer(@Param('id') id: number ,@Body() setUpdate: updatePlayerDtos) {
-    return this.playerServices.updatePlayer(id, setUpdate);
+    const result = await this.playerServices.updatePlayer(id, setUpdate);
+    if (!result) {
+      throw new NotFoundException("Não existe nenhum jogador com esse id para ser atualizado.");
+    }
+    return result;
   };
 
   @Get('/Players')
   async getPlayers() {
-    return this.playerServices.getPlayer();
+    const result = await this.playerServices.getPlayer();
+    if (!result) {
+      throw new NotFoundException(
+        "Ainda não tem nenhum jogador cadastrado no nosso banco de dados");
+    }
+    return result;
   }
 
   @Get('/Players/:id')
   async getPlayersByID(@Param('id') id: number) {
-    return this.playerServices.getPlayerById(id);
+    const result = await this.playerServices.getPlayerById(id);
+    if (!result) {
+      throw new NotFoundException("Não existe o jogador com esse id");
+    }
+    return result;
   }
 
   @Get('/Players/:name')

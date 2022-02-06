@@ -14,7 +14,7 @@ const options = {
 const password = process.env.DB_PASS;
 
 @Module({
-  imports: [MongooseModule.forRoot(`mongodb+srv://devSmart:${password}@smartranking.f9xnj.mongodb.net/ranking?retryWrites=true&w=majority`, options), PlayersModule, CategoriesModule],
+  imports: [MongooseModule.forRoot(`mongodb+srv://devSmart:${password}@smartranking.f9xnj.mongodb.net/ranking?retryWrites=true&w=majority`, options), CategoriesModule, PlayersModule],
   controllers: [],
   providers: [],
 })
