@@ -21,9 +21,7 @@ export class PlayersController {
   @UsePipes(ValidationPipe)
   async createNewPlayer(@Body() newPlayer: createPlayerDto) {
     const result = await this.playerServices.createPlayer(newPlayer);
-    if (!result) {
-      throw new NotFoundException("Ainda não tem nenhuma categoria registrada.");
-    }
+    
     return result;
   }
 

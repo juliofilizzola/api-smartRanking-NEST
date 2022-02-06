@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { createPlayerDto } from './dtos/createPlayer.dto';
@@ -13,7 +13,16 @@ export class PlayersService {
 
   async createPlayer(player: createPlayerDto): Promise<player> {
     this.logger.log(`create Player: ${player}`);
+    const verifyEmail = await this.playerModel.findOne({ email: player.email });
+    const verifyPhoneCel = await this.playerModel.findOne({ phoneCel: player.phoneCel });
+    
+    if(verifyEmail || verifyPhoneCel) {
+      throw new NotFoundException("A dados Repetidos ");
+    }
+    
+
     const createPlayer = new this.playerModel(player);
+    console.log(createPlayer);
     return createPlayer.save();
   }
 

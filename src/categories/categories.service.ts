@@ -26,6 +26,9 @@ export class CategoriesService {
 
   async getCategoriesById(id: string): Promise<categories> {
     const category = await this.categoryModel.findById(id);
+    if (!category) {
+      throw new NotFoundException("Categoria não existe");
+    }
     return category;
   }
 
@@ -34,5 +37,6 @@ export class CategoriesService {
     if (!getPlayer) {
       throw new NotFoundException("player not exist");
     }
+    return getPlayer;
   }
 }
