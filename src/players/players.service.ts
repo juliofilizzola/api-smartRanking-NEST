@@ -13,16 +13,6 @@ export class PlayersService {
 
   async createPlayer(player: createPlayerDto): Promise<player | object > {
     this.logger.log(`create Player: ${player}`);
-    const verifyEmail = await this.playerModel.findOne({ email: player.email });
-    const verifyPhoneCel = await this.playerModel.findOne({ phoneCel: player.phoneCel });
-    
-    if(verifyEmail || verifyPhoneCel) {
-      const result = verifyEmail ? "email" : "Phone Cel"
-      return {
-        message: `Erro: o item ${result} não pode ser repetido`
-      }
-    }
-    
     const createPlayer = new this.playerModel(player);
     return createPlayer.save();
   }

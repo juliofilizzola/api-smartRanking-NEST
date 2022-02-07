@@ -33,8 +33,21 @@ export class CategoriesController {
     return result;
   }
 
+  @Get("/name/:name")
+  async getCategoriesByName(@Param('name') name: string): Promise<categories> {
+    const result = await this.categoriesServices.getCategoriesByName(name);
+    if (!result) {
+      throw new NotFoundException("Não existe essa categoria ainda.");
+    }
+    return result;
+  }
+
   @Post('/:categories/player')
-  async setAttributePlayer(@Param('categories') categories: string, @Body() player: playersEvent): Promise<any> {
+  @UsePipes(ValidationPipe)
+  async setAttributePlayer(
+    @Param('categories') categories: string,
+    @Body() player: playersEvent
+  ): Promise<any> {
     const { players } = player;
     const result = await this.categoriesServices.setAttributePlayer(categories, players);
     return result;

@@ -14,7 +14,7 @@ export class httpError {
     const statusCode = execption instanceof HttpException
     ? execption.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    const message = execption instanceof HttpException ? execption.getStatus() : '';
+    const message = execption instanceof HttpException ? execption.getStatus() : execption;
 
     this.logger.error(`Http Status: ${statusCode} Error Message: ${JSON.stringify(message)}`);
 
