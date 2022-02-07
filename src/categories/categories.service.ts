@@ -26,26 +26,44 @@ export class CategoriesService {
   }
 
   async getCategoriesById(id: string): Promise<categories> {
-    const category = await this.categoryModel.findById(id);
+    const category = await this.categoryModel.findById(id).populate("players");
     if (!category) {
       throw new NotFoundException("Categoria não existe");
     }
     return category;
   }
 
-  async setAttributePlayer(categories: string, player: Array<string>) {
-    
-    const category = await this.categoryModel.findById(categories);
+  async getCategoriesByName(name: string): Promise<categories> {
+    const category = await this.categoryModel.findOne({ category: name }).populate("players");
     if (!category) {
+      throw new NotFoundException("Categoria não existe");
+    }
+    return category;
+  }
+
+  async setAttributePlayer(categories: string, player: any): Promise<categories> {
+    
+    const categoryChange = await this.categoryModel.findOne({ category: categories });
+    
+    if (!categoryChange) {
       throw new NotFoundException("player not exist");
     }
+    
+    if(categoryChange.players.length === 2) {
+      throw new NotFoundException("Categoria já possui jogadores para o jogo");
+    }
+  
     await this.playerModel.getPlayerById(player[1]);
     await this.playerModel.getPlayerById(player[0]);
     
-    category.players.push(player[0], player[1]);
-    console.log(category);
+    categoryChange.players.push(player[0], player[1]);
     
-    await this.categoryModel.findByIdAndUpdate({_id: categories}, {$set: category}).exec();
-    return category;
+    await this.categoryModel.findOneAndUpdate({category: categories}, {$set: categoryChange}).exec();
+    return categoryChange;
+  }
+
+  async deleteCategory(categoryId: string): Promise<any> {
+    const result = await this.categoryModel.findByIdAndDelete(categoryId);
+    return result;
   }
 }
