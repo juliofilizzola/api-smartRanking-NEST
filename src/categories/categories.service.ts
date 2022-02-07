@@ -44,9 +44,15 @@ export class CategoriesService {
   async setAttributePlayer(categories: string, player: any) {
     
     const categoryChange = await this.categoryModel.findOne({ category: categories });
+    
     if (!categoryChange) {
       throw new NotFoundException("player not exist");
     }
+    
+    if(categoryChange.players.length === 2) {
+      throw new NotFoundException("Categoria já possui jogadores para o jogo");
+    }
+  
     await this.playerModel.getPlayerById(player[1]);
     await this.playerModel.getPlayerById(player[0]);
     
