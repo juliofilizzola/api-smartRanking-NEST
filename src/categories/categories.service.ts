@@ -33,7 +33,7 @@ export class CategoriesService {
     return category;
   }
 
-  async setAttributePlayer(categories: string, player: Array<string>) {
+  async setAttributePlayer(categories: string, player: any) {
     
     const category = await this.categoryModel.findById(categories);
     if (!category) {

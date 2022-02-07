@@ -42,13 +42,13 @@ export class PlayersService {
     return response;
   }
 
-  async updatePlayer(id: number, upPlayer: updatePlayerDtos): Promise<player> {
+  async updatePlayer(id: string, upPlayer: updatePlayerDtos): Promise<player> {
     const responseUpdate = await this.playerModel.findOneAndUpdate({_id: id},
       {$set: upPlayer}).exec();
     return responseUpdate;
   }
 
-  async deletedPlayer(id: number): Promise<any> {
+  async deletedPlayer(id: string): Promise<any> {
     const responseDelete = await this.playerModel.deleteOne({_id: id});
     return responseDelete;
   }

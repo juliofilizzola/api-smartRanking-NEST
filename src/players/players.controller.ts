@@ -27,7 +27,7 @@ export class PlayersController {
 
   @Put('/updateRegister/:id')
   @UsePipes(ValidationPipe)
-  async updatePlayer(@Param('id') id: number ,@Body() setUpdate: updatePlayerDtos) {
+  async updatePlayer(@Param('id') id: string ,@Body() setUpdate: updatePlayerDtos) {
     const result = await this.playerServices.updatePlayer(id, setUpdate);
     if (!result) {
       throw new NotFoundException("Não existe nenhum jogador com esse id para ser atualizado.");
