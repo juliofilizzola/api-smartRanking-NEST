@@ -32,7 +32,7 @@ export class PlayersService {
 
   }
 
-  async getPlayerById(id: number): Promise<player> {
+  async getPlayerById(id: string): Promise<player> {
     const response = await this.playerModel.findOne({ _id: id });
     return response;
   }

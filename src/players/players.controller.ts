@@ -46,7 +46,7 @@ export class PlayersController {
   }
 
   @Get('/Players/:id')
-  async getPlayersByID(@Param('id') id: number) {
+  async getPlayersByID(@Param('id') id: string) {
     const result = await this.playerServices.getPlayerById(id);
     if (!result) {
       throw new NotFoundException("Não existe o jogador com esse id");
@@ -60,7 +60,7 @@ export class PlayersController {
   }
 
   @Delete('/Deleted/:id')
-  async deletedPlayer(@Param('id') id: number) {
+  async deletedPlayer(@Param('id') id: string) {
     return this.playerServices.deletedPlayer(id);
   }
   
