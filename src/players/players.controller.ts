@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body,
+  Controller,
+  Delete,
+  NotFoundException,
+  Get,
+  Param,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { createPlayerDto } from './dtos/createPlayer.dto';
 import { updatePlayerDtos } from './dtos/updatePlayer.dto';
 import { PlayersService } from './players.service';
@@ -8,23 +18,40 @@ export class PlayersController {
   constructor(private readonly playerServices: PlayersService) {}
 
   @Post('/new')
+  @UsePipes(ValidationPipe)
   async createNewPlayer(@Body() newPlayer: createPlayerDto) {
-    return this.playerServices.createPlayer(newPlayer);
+    const result = await this.playerServices.createPlayer(newPlayer);
+    
+    return result;
   }
 
   @Put('/updateRegister/:id')
+  @UsePipes(ValidationPipe)
   async updatePlayer(@Param('id') id: number ,@Body() setUpdate: updatePlayerDtos) {
-    return this.playerServices.updatePlayer(id, setUpdate);
+    const result = await this.playerServices.updatePlayer(id, setUpdate);
+    if (!result) {
+      throw new NotFoundException("Não existe nenhum jogador com esse id para ser atualizado.");
+    }
+    return result;
   };
 
   @Get('/Players')
   async getPlayers() {
-    return this.playerServices.getPlayer();
+    const result = await this.playerServices.getPlayer();
+    if (!result) {
+      throw new NotFoundException(
+        "Ainda não tem nenhum jogador cadastrado no nosso banco de dados");
+    }
+    return result;
   }
 
   @Get('/Players/:id')
   async getPlayersByID(@Param('id') id: number) {
-    return this.playerServices.getPlayerById(id);
+    const result = await this.playerServices.getPlayerById(id);
+    if (!result) {
+      throw new NotFoundException("Não existe o jogador com esse id");
+    }
+    return result;
   }
 
   @Get('/Players/:name')

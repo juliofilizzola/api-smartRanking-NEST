@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { createPlayerDto } from './dtos/createPlayer.dto';
@@ -11,8 +11,18 @@ export class PlayersService {
 
   constructor(@InjectModel('players') private readonly playerModel: Model<player>) {}
 
-  async createPlayer(player: createPlayerDto): Promise<player> {
+  async createPlayer(player: createPlayerDto): Promise<player | object > {
     this.logger.log(`create Player: ${player}`);
+    const verifyEmail = await this.playerModel.findOne({ email: player.email });
+    const verifyPhoneCel = await this.playerModel.findOne({ phoneCel: player.phoneCel });
+    
+    if(verifyEmail || verifyPhoneCel) {
+      const result = verifyEmail ? "email" : "Phone Cel"
+      return {
+        message: `Erro: o item ${result} não pode ser repetido`
+      }
+    }
+    
     const createPlayer = new this.playerModel(player);
     return createPlayer.save();
   }
