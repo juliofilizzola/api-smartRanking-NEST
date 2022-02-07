@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { player } from 'src/players/interface/player.interface';
+import { PlayersService } from 'src/players/players.service';
 import { createCategoryDto } from './dtos/createCategory.dtos';
 import { categories, playersEvent } from './interfaces/categories.interface';
 
@@ -10,7 +11,7 @@ export class CategoriesService {
 
   constructor(
     @InjectModel('category') private readonly categoryModel: Model<categories>,
-    @InjectModel('players') private readonly playerModel: Model<player>
+    private readonly playerModel: PlayersService
     ) {}
 
   async createCategories(categories: createCategoryDto): Promise<categories> {
@@ -32,19 +33,16 @@ export class CategoriesService {
     return category;
   }
 
-  async setAttributePlayer(categories: string, player: Array<String>) {
-    const getPlayer1 = await this.playerModel.findById(player[0]);
-    const getPlayer2 = await this.playerModel.findById(player[1]);
-    if (!getPlayer1 || !getPlayer2) {
-      const result = getPlayer1 ? "Player 2" : "Player 1";
-      throw new NotFoundException(`${result} not exist`);
-    }
+  async setAttributePlayer(categories: string, player: Array<string>) {
+    
     const category = await this.categoryModel.findById(categories);
     if (!category) {
       throw new NotFoundException("player not exist");
     }
-
-    category.players.push(getPlayer1, getPlayer2);
+    await this.playerModel.getPlayerById(player[1]);
+    await this.playerModel.getPlayerById(player[0]);
+    
+    category.players.push(player[0], player[1]);
     console.log(category);
     
     await this.categoryModel.findByIdAndUpdate({_id: categories}, {$set: category}).exec();
