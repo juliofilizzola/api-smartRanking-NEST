@@ -14,7 +14,6 @@ export class CategoriesController {
     return result;
   }
 
-
   @Get("/AllCategories")
   async getCategories(): Promise<categories[]> {
     const result = await this.categoriesServices.getCategories();
