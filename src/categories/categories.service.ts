@@ -41,7 +41,7 @@ export class CategoriesService {
     return category;
   }
 
-  async setAttributePlayer(categories: string, player: any) {
+  async setAttributePlayer(categories: string, player: any): Promise<categories> {
     
     const categoryChange = await this.categoryModel.findOne({ category: categories });
     
@@ -60,5 +60,10 @@ export class CategoriesService {
     
     await this.categoryModel.findOneAndUpdate({category: categories}, {$set: categoryChange}).exec();
     return categoryChange;
+  }
+
+  async deleteCategory(categoryId: string): Promise<any> {
+    const result = await this.categoryModel.findByIdAndDelete(categoryId);
+    return result;
   }
 }

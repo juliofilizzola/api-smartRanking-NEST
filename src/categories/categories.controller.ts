@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { createCategoryDto } from './dtos/createCategory.dtos';
 import { categories, playersEvent } from './interfaces/categories.interface';
@@ -50,6 +50,12 @@ export class CategoriesController {
   ): Promise<any> {
     const { players } = player;
     const result = await this.categoriesServices.setAttributePlayer(categories, players);
+    return result;
+  }
+
+  @Delete('deleted/:id')
+  async deleteCategory(@Param('id') id: string): Promise<any> {
+    const result = await this.categoriesServices.deleteCategory(id);
     return result;
   }
 }
