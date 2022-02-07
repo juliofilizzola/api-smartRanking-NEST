@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PlayersModule } from './players/players.module';
 import { CategoriesModule } from './categories/categories.module';
+import { ChallengesModule } from './challenges/challenges.module';
 import 'dotenv/config'
 
 const options = {
@@ -14,7 +15,7 @@ const options = {
 const password = process.env.DB_PASS;
 
 @Module({
-  imports: [MongooseModule.forRoot(`mongodb+srv://devSmart:${password}@smartranking.f9xnj.mongodb.net/ranking?retryWrites=true&w=majority`, options), CategoriesModule, PlayersModule],
+  imports: [MongooseModule.forRoot(`mongodb+srv://devSmart:${password}@smartranking.f9xnj.mongodb.net/ranking?retryWrites=true&w=majority`, options), CategoriesModule, PlayersModule, ChallengesModule],
   controllers: [],
   providers: [],
 })
