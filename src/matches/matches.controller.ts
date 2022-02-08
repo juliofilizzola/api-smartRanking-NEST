@@ -8,7 +8,7 @@ export class MatchesController {
 
   @Post('/newMatch')
   async setNewMatch(@Body() match: MatchesDto) {
-    const result = await this.matchService.newMathc(match);
+    const result = await this.matchService.newMatch(match);
     return result;
   }
 
