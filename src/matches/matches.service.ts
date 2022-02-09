@@ -15,4 +15,14 @@ export class MatchesService {
     const result = await match.save();
     return result;
   }
+
+  async getMatchById(id: string): Promise<Match> {
+    const result = await this.MatchModel.findById({ _id: id });
+    return result;
+  }
+
+  async getMatch(): Promise<Match[]> {
+    const result = await this.MatchModel.find();
+    return result;
+  }
 }
