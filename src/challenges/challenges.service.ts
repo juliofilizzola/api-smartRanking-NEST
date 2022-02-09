@@ -24,11 +24,16 @@ export class ChallengesService {
     return result;
   }
 
-  async getChallengeById(id): Promise<Challenges> {
+  async getChallengeById(id: string): Promise<Challenges> {
     const result = await this.ChallengesModel.findById({ _id: id })
       .populate("playes")
       .populate("matches");
     
+    return result;
+  }
+
+  async deleteChallenge(id: string): Promise<any> {
+    const result = await this.ChallengesModel.findByIdAndDelete({ _id: id });
     return result;
   }
 }
