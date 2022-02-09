@@ -19,8 +19,16 @@ export class ChallengesService {
   async getChallenges(): Promise<Challenges[]> {
     const result = await this.ChallengesModel.find()
       .populate("playes")
-      .populate("matches")
+      .populate("matches");
+    
     return result;
   }
-  
+
+  async getChallengeById(id): Promise<Challenges> {
+    const result = await this.ChallengesModel.findById({ _id: id })
+      .populate("playes")
+      .populate("matches");
+    
+    return result;
+  }
 }
