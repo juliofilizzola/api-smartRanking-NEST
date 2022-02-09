@@ -18,7 +18,7 @@ const password = process.env.DB_PASS;
 
 @Module({
   imports: [MongooseModule.forRoot(`mongodb+srv://devSmart:${password}@smartranking.f9xnj.mongodb.net/ranking?retryWrites=true&w=majority`, options), CategoriesModule, PlayersModule, ChallengesModule, MatchesModule],
-  controllers: [MatchesController],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}

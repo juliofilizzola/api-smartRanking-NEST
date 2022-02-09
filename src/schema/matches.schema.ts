@@ -10,4 +10,4 @@ export const MatchesSchema = new mongoose.Schema({
   result: [
     { set: { type: String } }
   ]
-}, { timestamps: true, collection: 'players', versionKey: false });
+}, { timestamps: true, collection: 'matches', versionKey: false });
