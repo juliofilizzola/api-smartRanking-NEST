@@ -15,4 +15,4 @@ export const challengesSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "matches"
   },
-}, { timestamps: true, collection: 'category', versionKey: false });
+}, { timestamps: true, collection: 'challenges', versionKey: false });
