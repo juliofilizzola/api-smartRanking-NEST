@@ -25,4 +25,14 @@ export class MatchesService {
     const result = await this.MatchModel.find();
     return result;
   }
+
+  async deleteMatch(id: string): Promise<any> {
+    const result = await this.MatchModel.findByIdAndDelete(id);
+    return result;
+  }
+
+  async updateMatch(id: string, matchUp: MatchesDto): Promise<Match> {
+    const result = await this.MatchModel.findByIdAndUpdate(id, matchUp);
+    return result;
+  }
 }
