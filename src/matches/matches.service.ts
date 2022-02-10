@@ -17,12 +17,13 @@ export class MatchesService {
   }
 
   async getMatchById(id: string): Promise<Match> {
-    const result = await this.MatchModel.findById({ _id: id });
+    const result = await this.MatchModel.findById({ _id: id })
+    .populate('players');
     return result;
   }
 
   async getMatch(): Promise<Match[]> {
-    const result = await this.MatchModel.find();
+    const result = await this.MatchModel.find().populate('players');
     return result;
   }
 

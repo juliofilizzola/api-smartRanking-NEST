@@ -8,6 +8,7 @@ import { Body,
   Put,
   UsePipes,
   ValidationPipe,
+  Logger,
 } from '@nestjs/common';
 import { createPlayerDto } from './dtos/createPlayer.dto';
 import { updatePlayerDtos } from './dtos/updatePlayer.dto';
@@ -15,6 +16,7 @@ import { PlayersService } from './players.service';
 
 @Controller('api/v1/players')
 export class PlayersController {
+  private readonly logger = new Logger(PlayersController.name);
   constructor(private readonly playerServices: PlayersService) {}
 
   @Post('/new')

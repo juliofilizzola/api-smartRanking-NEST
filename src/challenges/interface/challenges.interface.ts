@@ -7,7 +7,7 @@ import { Match } from '../../matches/inteface/matches.interface';
 export interface Challenges extends Document {
   dateChallenge: Date,
   status: ChallengesStatus,
-  request: String,
+  request: player,
   RequestDate: Date,
   ResponseDate: Date,
   category: String, 

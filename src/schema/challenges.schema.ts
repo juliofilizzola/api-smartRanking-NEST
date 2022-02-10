@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const challengesSchema = new mongoose.Schema({
+export const ChallengesSchema = new mongoose.Schema({
   dateChallenge: { type: Date },
   status: { type: String },
   RequestDate: { type: Date },
