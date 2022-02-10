@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { MatchesDto } from './dto/matches.dto';
 import { MatchesService } from './matches.service';
 
 @Controller('api/v1/matches')
 export class MatchesController {
+  private readonly logger = new Logger(MatchesController.name);
+
   constructor(private readonly matchService: MatchesService){}
 
   @Post('/new')
