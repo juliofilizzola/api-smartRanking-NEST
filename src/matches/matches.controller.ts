@@ -6,7 +6,7 @@ import { MatchesService } from './matches.service';
 export class MatchesController {
   constructor(private readonly matchService: MatchesService){}
 
-  @Post('/match/new')
+  @Post('/new')
   @UsePipes(ValidationPipe)
 
   async setNewMatch(@Body() match: MatchesDto) {
@@ -14,25 +14,25 @@ export class MatchesController {
     return result;
   }
 
-  @Get('/match/all')
+  @Get('/all')
   async getAllMatch() {
     const result = await this.matchService.getMatch();
     return result;
   }
 
-  @Get('/match/:id')
+  @Get('/:id')
   async getMatchById(@Param('id') id: string) {
     const result = await this.matchService.getMatchById(id);
     return result;
   }
 
-  @Delete('/match/delete/:id')
+  @Delete('/delete/:id')
   async deleteMatch(@Param('id') id: string) {
     const result = await this.matchService.deleteMatch(id);
     return result;
   }
 
-  @Put('/match/up/:id')
+  @Put('/up/:id')
   async updateMatch(
     @Param('id') id: string,
     @Body() matchUp: MatchesDto
