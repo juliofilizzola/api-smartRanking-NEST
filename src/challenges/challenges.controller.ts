@@ -2,11 +2,11 @@ import { Body, Controller, Get, Post, Param, Delete } from '@nestjs/common';
 import { ChallengesService } from './challenges.service';
 import { CreateChallengesDto } from './dtos/createChallenges.dto';
 
-@Controller('challenges')
+@Controller('api/v1/challenges')
 export class ChallengesController {
   constructor(private readonly ChallengesServices: ChallengesService) {}
 
-  @Post('new')
+  @Post('/new')
   async createNewChallenges(@Body() createChallenges: CreateChallengesDto) {
     const result = await this.ChallengesServices.newChallenges(createChallenges);
     return result;
