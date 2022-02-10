@@ -10,7 +10,6 @@ export class MatchesController {
 
   @Post('/new')
   @UsePipes(ValidationPipe)
-
   async setNewMatch(@Body() match: MatchesDto) {
     const result = await this.matchService.newMatch(match);
     return result;

@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, NotFoundException, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { createCategoryDto } from './dtos/createCategory.dtos';
 import { categories, playersEvent } from './interfaces/categories.interface';
 
 @Controller('api/v1/categories')
 export class CategoriesController {
+  private readonly logger = new Logger(CategoriesController.name);
+  
   constructor(private readonly categoriesServices: CategoriesService) {}
 
   @Post("/Categories")
