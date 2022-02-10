@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Delete, Put } from '@nestjs/common';
 import { ChallengesService } from './challenges.service';
 import { CreateChallengesDto } from './dtos/createChallenges.dto';
 
@@ -27,6 +27,15 @@ export class ChallengesController {
   @Delete('/delete/:id')
   async deleteChallenge(@Param('id') id: string) {
     const result = await this.ChallengesServices.deleteChallenge(id);
+    return result;
+  }
+
+  @Put('/up/:id')
+  async updateChallenge(
+    @Param('id') id: string,
+    @Body() upChallenges: CreateChallengesDto
+  ) {
+    const result = await this.ChallengesServices.upChallenge(id, upChallenges);
     return result;
   }
 }

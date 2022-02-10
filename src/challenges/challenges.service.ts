@@ -36,4 +36,10 @@ export class ChallengesService {
     const result = await this.ChallengesModel.findByIdAndDelete({ _id: id });
     return result;
   }
+
+  async upChallenge(id: string, upChallenges: CreateChallengesDto): Promise<Challenges> {
+    const result = await this.ChallengesModel
+      .findByIdAndUpdate({ _id: id}, { $set: upChallenges });
+    return result;
+  }
 }
